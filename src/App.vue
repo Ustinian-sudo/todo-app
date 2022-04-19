@@ -1,30 +1,67 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div class="main">
+    <div class="container">
+      <h1>欢迎使用Feng待办事项</h1>
+      <todo-input @transfer="getTodoItem"></todo-input>
+      <todo-filter></todo-filter>
+      <todo-list :todoItemArr="todoItemArr"></todo-list>
+    </div>
   </div>
-  <router-view/>
 </template>
 
-<style>
+<script>
+import TodoInput from "./components/TodoInput.vue";
+import TodoFilter from "./components/TodoFilter.vue";
+import TodoList from "./components/TodoList.vue";
+export default {
+  components: {
+    TodoInput,
+    TodoFilter,
+    TodoList,
+  },
+  data() {
+    return {
+      todoItemArr: [],
+    };
+  },
+  methods: {
+    getTodoItem(todoItem) {
+      this.todoItemArr.push(todoItem);
+    },
+  },
+};
+</script>
+
+
+<style lang="less">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  height: 100%;
+  background: #d8dfff;
 }
 
-#nav {
-  padding: 30px;
+.main {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 10vh 0;
+  display: grid;
+  align-items: start;
+  justify-items: center;
+  background: #d8dfff;
+  .container {
+    width: 60%;
+    max-width: 400px;
+    box-shadow: 0 0 24px rgb(0 0 0 / 15%);
+    border-radius: 24px;
+    padding: 48px 28px;
+    background-color: #f5f6fc;
+    /* 标题 */
+    h1 {
+      margin: 24px 0;
+      font-size: 28px;
+      text-align: center;
+      color: #414873;
+    }
+  }
 }
+</style>>
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
