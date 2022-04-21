@@ -1,14 +1,35 @@
 <template>
   <div class="filters">
-    <span class="filter active">全部</span>
-    <span class="filter">已完成</span>
-    <span class="filter">未完成</span>
+    <span
+      v-for="filter in filters"
+      :key="filter.value"
+      class="filter"
+      :class="{ active: selector === filter.value }"
+      @click="changeFilter(filter.value)"
+      >{{ filter.label }}</span
+    >
   </div>
 </template>
 
 <script>
 export default {
   name: "TodoFilter",
+  data() {
+    return {
+      selector: "all",
+      filters: [
+        { label: "全部", value: "all" },
+        { label: "已完成", value: "done" },
+        { label: "未完成", value: "todo" },
+      ],
+    };
+  },
+  methods: {
+    changeFilter(value) {
+      this.selector = value;
+      this.$emit('change-filter',this.selector);
+    },
+  },
 };
 </script>
 

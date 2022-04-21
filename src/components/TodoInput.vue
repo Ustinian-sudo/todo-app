@@ -16,11 +16,13 @@ export default {
       todoItem: {
         completed: false,
         content: "",
+        id: 0,
       },
     };
   },
   methods: {
     add() {
+      this.todoItem.id++;
       let todoItem = _.cloneDeep(this.todoItem);
       this.$emit("transfer", todoItem);
     },

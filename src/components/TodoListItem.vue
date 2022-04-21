@@ -1,19 +1,29 @@
 <template>
-  <div class="todo-item">
+  <div class="todo-item" :class="{ done: item.completed }">
     <label>
-      <input type="checkbox" :checked="todoItem.completed" />
-      {{ todoItem.content }}
+      <input type="checkbox" :checked="item.completed" @click="change" />
+      {{ item.content }}
       <span class="check-button"></span>
     </label>
   </div>
 </template>
 
 <script>
+import { reactive } from "@vue/reactivity";
 export default {
   name: "TodoListItem",
   props: ["todoItem"],
-  data() {
-    return {};
+  setup(props) {
+    const item = reactive(props.todoItem);
+    return {
+      item,
+    };
+  },
+  methods: {
+    change() {
+      this.item.completed = !this.item.completed;
+      this.$store.commit("changState", this.item);
+    },
   },
 };
 </script>

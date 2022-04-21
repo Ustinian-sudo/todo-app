@@ -3,8 +3,8 @@
     <div class="container">
       <h1>欢迎使用Feng待办事项</h1>
       <todo-input @transfer="getTodoItem"></todo-input>
-      <todo-filter></todo-filter>
-      <todo-list :todoItemArr="todoItemArr"></todo-list>
+      <todo-filter @change-filter="getfilter"></todo-filter>
+      <todo-list :selector="selector"></todo-list>
     </div>
   </div>
 </template>
@@ -19,15 +19,19 @@ export default {
     TodoFilter,
     TodoList,
   },
-  data() {
-    return {
-      todoItemArr: [],
-    };
+  data(){
+    return{
+      selector:"all",
+    }
   },
   methods: {
     getTodoItem(todoItem) {
-      this.todoItemArr.push(todoItem);
+      // console.log(this.state.todoItemArr);
+      this.$store.commit("add", todoItem);
     },
+    getfilter(selector){
+      this.selector = selector;
+    }
   },
 };
 </script>
